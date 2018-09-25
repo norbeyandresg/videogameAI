@@ -1,9 +1,5 @@
 import pygame
 import sys
-import math
-
-#import sprites -------------
-char = pygame.image.load('M0.png')
 
 #define colors -----------
 BLACK = (0,0,0)
@@ -29,7 +25,7 @@ class Control(object):
         size = [SCREEN_W, SCREEN_H]
         screen = pygame.display.set_mode(size)
 
-        man = Character(200,200,char)
+        man = Character(200,200, screen)
         running = True
 
         #screen event loop
@@ -57,25 +53,21 @@ class Control(object):
                         man.directions[2] = False
                     if e.key == pygame.K_d:
                         man.directions[3] = False
-                elif e.type == pygame.MOUSEMOTION:
-                    man.rotate()
 
             screen.fill(BLACK)
             man.draw(screen)
             man.move()
-            man.rotate()
             self.clock.tick(20)
             pygame.display.flip()
 
 #char class ----------------
 class Character(object):
-    def __init__(self, x, y, img):
+    def __init__(self, x, y, screen):
         self.x = x
         self.y = y
-        self.speed = 10
-        self.surface = img
-        self.original_image = img
-        self.rect = self.surface.get_rect()
+        self.speed = 5
+        self.screen = screen
+        pygame.draw.circle(self.screen, RED, (self.x, self.y), 10)
         self.directions = [False, False, False, False]
 
     def move(self):
@@ -88,15 +80,8 @@ class Character(object):
         if self.directions[3]:
             self.x += self.speed
 
-    def rotate(self):
-        mouse_x, mouse_y = pygame.mouse.get_pos()
-        rel_x, rel_y = mouse_x - self.x, mouse_y - self.y
-        angle = (180 / math.pi) * -math.atan2(rel_y, rel_x)
-        self.surface = pygame.transform.rotate(self.original_image, int(angle))
-        self.rect = self.surface.get_rect(center=(self.x, self.y))
-
     def draw(self, screen):
-        screen.blit(self.surface, (self.x, self.y))
+        pygame.draw.circle(self.screen, RED, (self.x, self.y), 10)
 
 def main():
     pygame.init()
