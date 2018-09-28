@@ -25,7 +25,7 @@ class Control(object):
         size = [SCREEN_W, SCREEN_H]
         screen = pygame.display.set_mode(size)
 
-        man = Character(200,200, screen)
+        man = Character(100, 10, 200, 200, screen)
         running = True
 
         #screen event loop
@@ -60,9 +60,11 @@ class Control(object):
             self.clock.tick(20)
             pygame.display.flip()
 
-#char class ----------------
+#super class ----------------
 class Character(object):
-    def __init__(self, x, y, screen):
+    def __init__(self, life, dps, x, y, screen):
+        self.life = life
+        self.dps = dps
         self.x = x
         self.y = y
         self.speed = 5
@@ -80,8 +82,21 @@ class Character(object):
         if self.directions[3]:
             self.x += self.speed
 
+    def reload():
+        pass
+
+    def getPos():
+        return (self.x, self.y)
+
+    def getLife():
+        return self.life
+
     def draw(self, screen):
         pygame.draw.circle(self.screen, RED, (self.x, self.y), 10)
+
+#enemy class ---------------
+class Enemy(Character):
+    pass
 
 def main():
     pygame.init()
