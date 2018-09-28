@@ -1,3 +1,4 @@
+from Boids import * 
 import pygame
 import sys
 
@@ -22,10 +23,12 @@ class Control(object):
         self.font = pygame.font.Font(None, 24)
 
     def startScreen(self):
+        global boids
         size = [SCREEN_W, SCREEN_H]
         screen = pygame.display.set_mode(size)
 
         man = Character(100, 10, 200, 200, screen)
+        boids = createBoid(screen)
         running = True
 
         #screen event loop
@@ -57,11 +60,13 @@ class Control(object):
             screen.fill(BLACK)
             man.draw(screen)
             man.move()
+            drawBoids(boids)
+            moveBoids(boids)
             self.clock.tick(20)
             pygame.display.flip()
 
 #super class ----------------
-class Character(object):
+class Character:
     def __init__(self, life, dps, x, y, screen):
         self.life = life
         self.dps = dps

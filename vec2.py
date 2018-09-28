@@ -46,5 +46,9 @@ class Vec2:
 		else:
 			return Vec2(self.x * other.x, self.y * other.y)
 
-	def __str__(self):
-        return "({0},{1})".format(self.x,self.y)
+	def __abs__(self):
+		types = (int, float)
+		if (isinstance(self, types)):
+			return abs(self)
+		else:
+			return Vec2(abs(self.x), abs(self.y))
