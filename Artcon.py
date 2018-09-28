@@ -10,8 +10,8 @@ BLUE = (0,0,255)
 WHITE = (255,255,255)
 
 #constants ---------------
-SCREEN_H = 500
-SCREEN_W = 800
+SCREEN_H = 800
+SCREEN_W = 1200
 
 
 #main class ----------------

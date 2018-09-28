@@ -54,7 +54,7 @@ def checkRule1(boids, b):
 def checkRule2(boids, b):
 	c = Vec2(0,0) 			#CONTROL VECTOR FOR POSITION
 	for boid in boids:
-		if (boid != b and abs(boid.position - b.position) < 50):
+		if (boid != b and abs(boid.position - b.position) < 5):
 			c = c - (boid.position - b.position)
 	return c
 

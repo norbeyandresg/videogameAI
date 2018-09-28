@@ -52,3 +52,12 @@ class Vec2:
 			return abs(self)
 		else:
 			return Vec2(abs(self.x), abs(self.y))
+
+	def __lt__(self, other):
+		types = (int, float)
+		if (isinstance(self, types)):
+			return (self < other.x and self < other.y)
+		elif (isinstance(other, types)):
+			return (self.x < other and self.y < other)
+		else:
+			return (self.x < other.x and self.y < other.y)
