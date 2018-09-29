@@ -34,13 +34,14 @@ def moveBoids(boids, target):
 	v1, v2, v3 = Vec2(0,0), Vec2(0,0), Vec2(0,0)
 	for b in boids:
 		v1 = checkRule1(boids, b) 			#CHECK COHESION
-		v2 = checkRule2(boids, b)			#CHECK ALIGNMENT
+		v2 = checkRule2(boids, b, target)	#CHECK ALIGNMENT
 		v3 = checkRule3(boids, b)			#CHECK SEPARATION
 		trg = getTarget(b, target)
 
 		b.velocity = b.velocity + v1 + v2 + v3 + trg
 		limit_speed(b)
-		b.position = b.position + b.velocity
+		b.position = b.position + b.velocity + boundPos(b)
+
 
 #COHESION: calculate the average position of the boid
 def checkRule1(boids, b):
@@ -54,15 +55,18 @@ def checkRule1(boids, b):
 
 #ALIGNMENT: prevent the elements in the boid colide each others
 #			take all the elements to close as possible
-def checkRule2(boids, b):
+def checkRule2(boids, b, target):
 	c = Vec2(0,0) 			#CONTROL VECTOR FOR POSITION
+	targetPos = Vec2(target.x, target.y)
 	for boid in boids:
-		if (boid != b and abs(boid.position - b.position) < 5):
+		if (boid != b and abs(boid.position - b.position) < 20):
 			c = c - (boid.position - b.position)
+	if (abs(targetPos - b.position ) < 20):
+		c = c - (targetPos / b.position) 
 	return c
 
 
-#SEPARATION: calculate the parcived velocity of the flok
+#SEPARATION: calculate the percived velocity of the flok
 def checkRule3(boids, b):
 	pv = Vec2(0,0)  		#PERCIVED VELOCITY OF THE BOID FOR B
 	for boid in boids:
@@ -89,4 +93,21 @@ def limit_speed(b):
 
 	if (abs(b.velocity) > SPEED_LIMIT):
 		b.velocity = (b.velocity / abs(b.velocity)) * SPEED_LIMIT
+
+def boundPos(b):
+	xmin, ymin = 0,0 
+	xmax, ymax = SCREEN_W, SCREEN_H
+	v = Vec2(0,0)
+	
+	if (b.position.x < xmin):
+		v.x = 10
+	elif (b.position.x > xmax):
+		v.x = -10
+
+	if (b.position.y < ymin):
+		v.y = 10
+	elif (b.position.y > ymax):
+		v.y = -10
+
+	return v
 #######################################################################
