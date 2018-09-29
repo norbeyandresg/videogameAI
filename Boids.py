@@ -5,11 +5,11 @@ import random
 
 #define colors -----------
 RED = (255,0,0)
-
+GREEN = (0,255,0)
 #constants ---------------
 SCREEN_H = 500
 SCREEN_W = 800
-BOIDS_R = 10 			#BOID RADIUS
+BOIDS_R = 8 			#BOID RADIUS
 SPEED_LIMIT = 10 		#SPEED LIMIT FOR THE BOIDS
 
 #######################################################################
@@ -19,7 +19,7 @@ class Boid:
 		self.position = position
 		self.velocity = velocity
 		self.screen = screen
-		pygame.draw.circle(screen, RED, (int(self.position.x), int(self.position.y)), BOIDS_R)
+		pygame.draw.circle(screen, GREEN, (int(self.position.x), int(self.position.y)), BOIDS_R)
 #######################################################################
 #BOIDS MANIPULATION FUNCTIONS
 def initBoids():
@@ -28,7 +28,7 @@ def initBoids():
 
 def drawBoids(boids):
 	for b in boids:
-		pygame.draw.circle(b.screen, RED, (int(b.position.x), int(b.position.y)), BOIDS_R)
+		pygame.draw.circle(b.screen, GREEN, (int(b.position.x), int(b.position.y)), BOIDS_R)
 
 def moveBoids(boids, target):
 	v1, v2, v3 = Vec2(0,0), Vec2(0,0), Vec2(0,0)
