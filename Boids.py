@@ -1,8 +1,8 @@
 from vec2 import Vec2
 import pygame
 import sys
-import random 
-	
+import random
+
 #define colors -----------
 RED = (255,0,0)
 
@@ -10,6 +10,7 @@ RED = (255,0,0)
 SCREEN_H = 500
 SCREEN_W = 800
 BOIDS_R = 10 			#BOID RADIUS
+SPEED_LIMIT = 10 		#SPEED LIMIT FOR THE BOIDS
 
 #######################################################################
 #BOID OBJECT CLASS
@@ -29,14 +30,16 @@ def drawBoids(boids):
 	for b in boids:
 		pygame.draw.circle(b.screen, RED, (int(b.position.x), int(b.position.y)), BOIDS_R)
 
-def moveBoids(boids):
+def moveBoids(boids, target):
 	v1, v2, v3 = Vec2(0,0), Vec2(0,0), Vec2(0,0)
 	for b in boids:
 		v1 = checkRule1(boids, b) 			#CHECK COHESION
 		v2 = checkRule2(boids, b)			#CHECK ALIGNMENT
 		v3 = checkRule3(boids, b)			#CHECK SEPARATION
+		trg = getTarget(b, target)
 
-		b.velocity = b.velocity + v1 + v2 + v3
+		b.velocity = b.velocity + v1 + v2 + v3 + trg
+		limit_speed(b)
 		b.position = b.position + b.velocity
 
 #COHESION: calculate the average position of the boid
@@ -59,7 +62,7 @@ def checkRule2(boids, b):
 	return c
 
 
-#SEPARATION: calculate the parcived velocity of the flok 
+#SEPARATION: calculate the parcived velocity of the flok
 def checkRule3(boids, b):
 	pv = Vec2(0,0)  		#PERCIVED VELOCITY OF THE BOID FOR B
 	for boid in boids:
@@ -77,6 +80,13 @@ def createBoid(screen):
 		p = Boid(position, velocity, screen)
 		boids.append(p)
 	return boids
+
+def getTarget(b, target):
+	return (target - b.position) * (1/100)
+
+def limit_speed(b):
+	v = Vec2(0,0)
+
+	if (abs(b.velocity) > SPEED_LIMIT):
+		b.velocity = (b.velocity / abs(b.velocity)) * SPEED_LIMIT
 #######################################################################
-
-

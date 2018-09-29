@@ -61,3 +61,21 @@ class Vec2:
 			return (self.x < other and self.y < other)
 		else:
 			return (self.x < other.x and self.y < other.y)
+
+	def __gt__(self, other):
+		types = (int, float)
+		if (isinstance(self, types)):
+			return (self > other.x and self > other.y)
+		elif (isinstance(other, types)):
+			return (self.x > other and self.y > other)
+		else:
+			return (self.x > other.x and self.y > other.y)
+
+	def __truediv__(self, other):
+		types = (int, float)
+		if (isinstance(self, types)):
+			return (0)
+		elif (isinstance(other, types)):
+			return Vec2(self.x / other, self.y / other)
+		else:
+			return Vec2(self.x / other.x, self.y / other.y)

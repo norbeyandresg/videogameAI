@@ -1,4 +1,4 @@
-from Boids import * 
+from Boids import *
 import pygame
 import sys
 
@@ -15,7 +15,7 @@ SCREEN_W = 1200
 
 
 #main class ----------------
-class Control(object):
+class Control:
     def __init__(self):
         self.screen = pygame.display.get_surface()
         self.screen_rect = self.screen.get_rect()
@@ -61,7 +61,7 @@ class Control(object):
             man.draw(screen)
             man.move()
             drawBoids(boids)
-            moveBoids(boids)
+            moveBoids(boids, Vec2(man.x, man.y))
             self.clock.tick(20)
             pygame.display.flip()
 
