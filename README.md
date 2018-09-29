@@ -15,3 +15,5 @@ Chapter 4. Flocking - [O'Reilly](https://www.oreilly.com/library/view/ai-for-gam
 
 
 [Basic boids pseudocode](http://www.kfish.org/boids/pseudocode.html)
+
+Flocking implementation examples [processing.org](https://processing.org/examples/flocking.html)
