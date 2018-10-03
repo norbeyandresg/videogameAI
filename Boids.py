@@ -62,7 +62,9 @@ def checkRule2(boids, b, target):
 		if (boid != b and abs(boid.position - b.position) < 20):
 			c = c - (boid.position - b.position)
 	if (abs(targetPos - b.position ) < 20):
-		c = c - (targetPos / b.position) 
+		c = c - (targetPos / b.position)
+	if (c.mag() > 0):
+		c = c.norm()
 	return c
 
 
@@ -73,7 +75,10 @@ def checkRule3(boids, b):
 		if (boid != b):
 			pv = pv + boid.velocity
 	pv = pv * (1/ (len(boids) - 1))
-	return (pv - b.velocity) * (1/100)
+	pv = pv - b.velocity
+	if (pv.mag() > 0):
+		pv = pv.norm()
+	return pv
 
 def createBoid(screen):
 	boids = []
@@ -86,7 +91,10 @@ def createBoid(screen):
 	return boids
 
 def getTarget(b, target):
-	return (target - b.position) * (1/100)
+	target = target - b.position
+	if (target.mag() > 0):
+		target = target.norm()
+	return target
 
 def limit_speed(b):
 	v = Vec2(0,0)
@@ -95,10 +103,10 @@ def limit_speed(b):
 		b.velocity = (b.velocity / abs(b.velocity)) * SPEED_LIMIT
 
 def boundPos(b):
-	xmin, ymin = 0,0 
+	xmin, ymin = 0,0
 	xmax, ymax = SCREEN_W, SCREEN_H
 	v = Vec2(0,0)
-	
+
 	if (b.position.x < xmin):
 		v.x = 10
 	elif (b.position.x > xmax):

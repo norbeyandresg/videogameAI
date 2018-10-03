@@ -1,3 +1,5 @@
+import math
+
 class Vec2:
 	def __init__(self, x, y):
 		self.x = float(x)
@@ -79,3 +81,9 @@ class Vec2:
 			return Vec2(self.x / other, self.y / other)
 		else:
 			return Vec2(self.x / other.x, self.y / other.y)
+
+	def mag(self):
+		return (math.sqrt((self.x * self.x) + (self.y * self.y)))
+
+	def norm(self):
+		return (self / self.mag())
