@@ -1,3 +1,4 @@
+from Boids import *
 import pygame
 import sys
 
@@ -9,12 +10,12 @@ BLUE = (0,0,255)
 WHITE = (255,255,255)
 
 #constants ---------------
-SCREEN_H = 500
-SCREEN_W = 800
+SCREEN_H = 800
+SCREEN_W = 1200
 
 
 #main class ----------------
-class Control(object):
+class Control:
     def __init__(self):
         self.screen = pygame.display.get_surface()
         self.screen_rect = self.screen.get_rect()
@@ -22,10 +23,12 @@ class Control(object):
         self.font = pygame.font.Font(None, 24)
 
     def startScreen(self):
+        global boids
         size = [SCREEN_W, SCREEN_H]
         screen = pygame.display.set_mode(size)
 
         man = Character(100, 10, 200, 200, screen)
+        boids = createBoid(screen)
         running = True
 
         #screen event loop
@@ -57,11 +60,13 @@ class Control(object):
             screen.fill(BLACK)
             man.draw(screen)
             man.move()
+            drawBoids(boids)
+            moveBoids(boids, Vec2(man.x, man.y))
             self.clock.tick(20)
             pygame.display.flip()
 
 #super class ----------------
-class Character(object):
+class Character:
     def __init__(self, life, dps, x, y, screen):
         self.life = life
         self.dps = dps
