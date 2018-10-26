@@ -23,7 +23,7 @@ Flocking implementation examples [processing.org](https://processing.org/example
 We use [SciKit Fuzzy](https://pythonhosted.org/scikit-fuzzy/), a fuzzy logic toolbox for SciPy.
 
 ```
-pip install nunmpy
+pip install numpy
 
 pip install scikit-fuzzy
 ```
