@@ -26,9 +26,9 @@ def initBoids():
 	drawBoids()
 	moveBoids()
 
-def drawBoids(boids):
+def drawBoids(boids, COLOR):
 	for b in boids:
-		pygame.draw.circle(b.screen, GREEN, (int(b.position.x), int(b.position.y)), BOIDS_R)
+		pygame.draw.circle(b.screen, COLOR, (int(b.position.x), int(b.position.y)), BOIDS_R)
 
 def moveBoids(boids, target):
 	v1, v2, v3 = Vec2(0,0), Vec2(0,0), Vec2(0,0)
@@ -84,7 +84,7 @@ def createBoid(screen):
 	boids = []
 
 	for i in range (10):
-		position = Vec2(random.randrange(SCREEN_W), random.randrange(SCREEN_H))
+		position = Vec2(random.randrange(700, SCREEN_W), random.randrange(400, SCREEN_H))
 		velocity = Vec2(0,0)
 		p = Boid(position, velocity, screen)
 		boids.append(p)

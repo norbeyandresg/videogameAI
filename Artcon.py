@@ -60,8 +60,7 @@ class Control:
             screen.fill(BLACK)
             man.draw(screen)
             man.move()
-            drawBoids(boids)
-            moveBoids(boids, Vec2(man.x, man.y))
+            checkDistance(boids, man)
             self.clock.tick(20)
             pygame.display.flip()
 
@@ -72,9 +71,9 @@ class Character:
         self.dps = dps
         self.x = x
         self.y = y
-        self.speed = 5
+        self.speed = 10
         self.screen = screen
-        pygame.draw.circle(self.screen, RED, (self.x, self.y), 10)
+        pygame.draw.circle(self.screen, BLUE, (self.x, self.y), 10)
         self.directions = [False, False, False, False]
 
     def move(self):
@@ -102,6 +101,21 @@ class Character:
 #enemy class ---------------
 class Enemy(Character):
     pass
+
+
+def checkDistance(boids, man):
+    pc = Vec2(0,0)
+    for b in boids:
+        pc = pc + b.position
+    pc = pc / len(boids)
+    if (abs(Vec2(man.x, man.y) - pc)).mag() > 250 :
+        drawBoids(boids, WHITE)
+    else:
+        drawBoids(boids, RED)
+
+    if (abs(Vec2(man.x, man.y) - pc)).mag() > 200:
+        moveBoids(boids, Vec2(man.x, man.y))
+
 
 def main():
     pygame.init()
