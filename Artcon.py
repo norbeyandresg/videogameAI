@@ -96,7 +96,7 @@ class Character:
         return self.life
 
     def draw(self, screen):
-        pygame.draw.circle(self.screen, RED, (self.x, self.y), 10)
+        pygame.draw.circle(self.screen, BLUE, (self.x, self.y), 10)
 
 #enemy class ---------------
 class Enemy(Character):
